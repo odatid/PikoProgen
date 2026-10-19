@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>刺激の1手 早見表｜PK//PROTO</title>
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+:root{
+  --ink:#14140F;--ink2:#4E4E44;--ink3:#7C7C6E;--line:#D6D2C0;
+  --yellow:#F2D000;--leopard:#8B5E34;
+  --c1:#B4653A;  /* お邪魔 */
+  --c2:#2B4C7E;  /* しばり */
+  --c3:#2F6B4F;  /* ○○しながら */
+  --c4:#7A3E7A;  /* 逆転 */
+  --c5:#9A6A0B;  /* 焦らし */
+}
+html,body{margin:0;padding:0;background:#fff;color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:297mm;height:210mm;padding:6mm 7mm 5mm;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.page:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3mm;background-color:#F2D000;
+  background-image:radial-gradient(circle at 30% 12%,#3a2a12 0 1.6px,transparent 1.9px),
+    radial-gradient(circle at 72% 34%,#3a2a12 0 1.3px,transparent 1.6px),
+    radial-gradient(circle at 26% 58%,#3a2a12 0 1.5px,transparent 1.8px),
+    radial-gradient(circle at 68% 82%,#3a2a12 0 1.4px,transparent 1.7px);
+  background-size:3mm 22mm;background-repeat:repeat-y}
+
+/* header */
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:6mm;border-bottom:2.5px solid var(--ink);padding-bottom:2mm;margin-bottom:2.4mm;flex:0 0 auto}
+.hd-l{display:flex;align-items:baseline;gap:4mm}
+h1{margin:0;font-size:23pt;font-weight:900;letter-spacing:.01em;line-height:1}
+h1 .sub{font-size:10pt;font-weight:700;color:var(--ink2);margin-left:3mm;letter-spacing:.06em}
+.tagline{font-size:8pt;color:var(--ink2);letter-spacing:.14em;font-weight:700}
+.hd-r{text-align:right;font-size:7pt;line-height:1.55;color:var(--ink2);max-width:92mm}
+.hd-r b{color:var(--ink)}
+.hd-r .steps{display:flex;gap:3mm;justify-content:flex-end;margin-bottom:1mm}
+.hd-r .steps span{font-family:ui-monospace,monospace;font-size:6.8pt;border:1px solid var(--line);padding:1mm 1.6mm;border-radius:1px}
+.hd-r .steps span i{font-style:normal;color:var(--leopard);margin-right:1mm}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr);gap:1.6mm;flex:1 1 auto;min-height:0}
+.card{border:1px solid var(--line);border-top:2.2px solid var(--ink);padding:1.2mm 1.6mm 1mm;display:flex;flex-direction:column;background:#FFFDF7;position:relative;overflow:hidden;min-height:0}
+.card .no{position:absolute;right:1.4mm;top:.9mm;font-family:ui-monospace,monospace;font-size:5.4pt;color:#C6C1AA}
+.card .tp{font-family:ui-monospace,monospace;font-size:5.2pt;letter-spacing:.06em;padding:.2mm 1mm;border-radius:1px;color:#fff;align-self:flex-start;margin-bottom:.6mm}
+.card h2{font-size:8.6pt;font-weight:900;margin:0 0 .5mm;line-height:1.2;letter-spacing:0}
+.card .one{font-size:6.4pt;color:var(--ink2);line-height:1.3;margin:0 0 .8mm;font-weight:500}
+.card .lab{font-family:ui-monospace,monospace;font-size:5.2pt;letter-spacing:.04em;color:#8A8570;margin:.4mm 0 .1mm}
+.card .txt{font-size:6pt;line-height:1.33;margin:0;color:#2E2E27}
+.card .fit{margin-top:auto;padding-top:.7mm;font-size:5.8pt;color:#5F5F52;border-top:1px dotted var(--line);line-height:1.3}
+.card .fit b{color:var(--ink);font-weight:700}
+.t1{background:var(--c1)}.t2{background:var(--c2)}.t3{background:var(--c3)}.t4{background:var(--c4)}.t5{background:var(--c5)}
+.card.tb1{border-top-color:var(--c1)}.card.tb2{border-top-color:var(--c2)}.card.tb3{border-top-color:var(--c3)}
+.card.tb4{border-top-color:var(--c4)}.card.tb5{border-top-color:var(--c5)}
+
+/* footer */
+.ft{margin-top:2mm;display:grid;grid-template-columns:1fr auto;gap:5mm;align-items:end;border-top:1px solid var(--line);padding-top:1.6mm;flex:0 0 auto}
+.map{display:flex;flex-wrap:wrap;gap:.6mm 2mm;font-size:6pt;color:var(--ink2);line-height:1.5}
+.map b{color:var(--ink);font-weight:700}
+.map span{white-space:nowrap}
+.map span:after{content:"→";color:var(--leopard);margin-left:1mm}
+.map span i{font-style:normal;color:var(--ink)}
+.note{font-size:5.8pt;color:var(--ink3);text-align:right;line-height:1.5;max-width:70mm}
+.note b{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <div class="hd-l">
+      <h1>刺激の1手<span class="sub">早見表</span></h1>
+      <div class="tagline">ONE TWIST / 20 TYPES</div>
+    </div>
+    <div class="hd-r">
+      <div class="steps">
+        <span><i>01</i>1つ選ぶ</span>
+        <span><i>02</i>名前を書く</span>
+        <span><i>03</i>実装する</span>
+      </div>
+      <b>「避ける」だけ、「集める」だけでは、遊びは生まれない。</b>お邪魔・しばり・○○しながら・逆転・焦らしのどれかを<b>1つだけ</b>足すと、同じ操作が判断を伴う遊びになる。2つ以上足すと、ルールを説明できなくなる。
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="ft">
+    <div class="map" id="map"></div>
+    <div class="note">
+      <b>選び方：</b>①2つ目の動詞があるなら、まずその対応表から選ぶ ②なければ「相性の動詞」が自分の動詞と重なるものを選ぶ ③同点なら実装が軽いものから。<br>
+      PK//PROTO ゲーム制作演習 / 2026 後期
+    </div>
+  </div>
+</div>
+
+<script>
+const TYPE = {
+  obstacle:{k:'お邪魔', cls:'t1 tb1'},
+  limit:   {k:'しばり', cls:'t2 tb2'},
+  dual:    {k:'○○しながら', cls:'t3 tb3'},
+  reverse: {k:'逆転', cls:'t4 tb4'},
+  tease:   {k:'焦らし', cls:'t5 tb5'}
+};
+const T = [
+ {n:'偽物を混ぜる',t:'obstacle',one:'本物とそっくりな偽物が混ざる',w:'見た目がほぼ同じで、色だけ少し違う偽物を1種追加する。',e:'「見る」行為が生まれ、判断の速さがスコアになる。',h:'同じPrefabの色違いを作り、正解フラグだけfalseに。本物と偽物を同数出す。',f:'見分ける／選ぶ／判断する／探す'},
+ {n:'追ってくる物',t:'obstacle',one:'後ろから追ってくる存在がいる',w:'一定速度で自分を追う存在を1体追加。触れるとミス。',e:'立ち止まれなくなり、移動に「逃げる」意味が生まれる。',h:'毎フレーム相手方向へ一定速度で進む。距離が近いと警告音。',f:'避ける／逃げる／走る'},
+ {n:'動く障害物',t:'obstacle',one:'地形そのものが動いて道を塞ぐ',w:'左右または上下に往復する壁を1〜2個追加。',e:'覚えたパターンが使えず、リズムで避けるようになる。',h:'PingPongで往復。当たり判定は見た目より少し小さく。',f:'避ける／すり抜ける'},
+ {n:'取られる',t:'obstacle',one:'集めた物を奪われる',w:'一定時間ごとに得点やアイテムを1つ奪う存在を追加。',e:'取るだけでは終わらず、守るという判断が生まれる。',h:'接触でスコア−1と「取られた」表示。奪った側は逃げる。',f:'集める／守る／逃げる'},
+
+ {n:'見える範囲を絞る',t:'limit',one:'スポットライトの外が見えない',w:'自分の周囲だけ明るく、外は暗くする。',e:'先読みができず、音と記憶で遊ぶようになる。',h:'Canvasに黒パネル＋円形マスク。マスクは自分に追従。',f:'探す／避ける／歩く'},
+ {n:'止まれない',t:'limit',one:'キーを離しても少し滑る',w:'移動に慣性を入れ、急には止まれなくする。',e:'操作の上手さが差になる。慣れると気持ちいい。',h:'速度に加速度と摩擦。入力が無くても徐々に減速。',f:'避ける／走る／すり抜ける'},
+ {n:'一度しか曲がれない',t:'limit',one:'曲がる回数に制限がある',w:'方向転換の回数に上限を設け、使い切ると直進だけになる。',e:'1回の判断の重みが増し、計画性が問われる。',h:'残り回数をカウンタで持ち、0で入力を無視。UIに残数。',f:'曲がる／選ぶ／積む'},
+ {n:'足場が消える',t:'limit',one:'時間で床が抜けていく',w:'立っていた足場が一定時間で消える。',e:'同じ場所に留まれず、常に動く理由が生まれる。',h:'接触したら0.8秒後に非表示。復活しない。',f:'跳ぶ／走る／積む'},
+ {n:'操作が反転する',t:'limit',one:'一定時間、左右が逆になる',w:'5秒ごとに左右（または上下）の入力が反転する。',e:'慣れを裏切る。短時間に限定すると気持ちいい。',h:'boolを一定間隔でトグルし符号を反転。画面に「反転中」。',f:'避ける／押す／合わせる'},
+
+ {n:'数えながら',t:'dual',one:'別のものを数え続ける',w:'画面の端の対象を数えさせる（最後に回答）。',e:'注意が分散する。慣れると無意識にできるようになる。',h:'通過数を内部で数え、リザルトで3択。正解でボーナス。',f:'数える／避ける／集める'},
+ {n:'リズムを刻みながら',t:'dual',one:'一定のテンポで余分に叩く',w:'4拍ごとに決まったキーを押す。押さないとゲージが減る。',e:'手が2ついる状態になり、音楽と操作が一致する。',h:'BPMから拍を計算し、前後0.12秒以内を成功に。',f:'リズムを刻む／走る'},
+ {n:'運びながら',t:'dual',one:'壊れやすい物を持ったまま動く',w:'アイテムを1つ持ち、落とさないように動く。',e:'移動の丁寧さが問われ、雑に動けなくなる。',h:'所持中は速度−20%。被弾か急停止で落とす。',f:'運ぶ／支える／避ける'},
+ {n:'狙いながら',t:'dual',one:'移動しながら別の的を狙う',w:'移動とは別に、照準を合わせて撃つ／指す操作を追加。',e:'2つの操作を同時に扱う。上級者ほど上手くなる。',h:'移動はキー、照準はマウス。撃つのは1ボタン。',f:'撃つ／狙う／避ける'},
+
+ {n:'取ると減る',t:'reverse',one:'欲しい物と避ける物が入れ替わる',w:'序盤は「取る」、後半は「避ける」にルールが反転する。',e:'同じ画面なのに遊びが変わる。驚きが生まれる。',h:'経過時間の半分でフラグを切替。UIの色と文言も反転。',f:'選ぶ／見分ける／積む'},
+ {n:'役割が入れ替わる',t:'reverse',one:'途中から操作するものが変わる',w:'一定時間で操作対象が敵側に切り替わる。',e:'新しい操作を覚え直す楽しさが出る。',h:'操作対象の参照を差し替え、カメラも切り替える。',f:'変える／変身する／逃げる'},
+
+ {n:'溜めてから放つ',t:'tease',one:'押し続けて溜め、離すと発動',w:'長押しで力を溜め、離した瞬間に効果。溜めすぎると失敗。',e:'「今だ」という判断が生まれ、手応えが強くなる。',h:'押下時間を計測し0.3〜1.2秒だけ成功。範囲外は失敗。',f:'積む／合わせる／跳ぶ'},
+ {n:'増え続ける',t:'obstacle',one:'時間とともに数が増える',w:'時間経過で出現数が増え、画面が埋まっていく。',e:'序盤の余裕が、終盤の切迫に変わる。',h:'出現間隔を毎秒1%ずつ短くする（下限0.25秒）。',f:'避ける／すり抜ける'},
+ {n:'最後に加速する',t:'tease',one:'残り10秒で全部が速くなる',w:'終盤だけ落下速度・移動速度・BGMのテンポが上がる。',e:'最後まで気が抜けず、結果の差がつく。',h:'残り10秒で速度に1.6倍。画面の縁を赤く。',f:'避ける／打ち返す／走る'},
+ {n:'見せてから出す',t:'tease',one:'出す直前に必ず予告がある',w:'出現の0.3秒前に影・音・点滅で予告し、その後必ず出る。',e:'理不尽さが消え、覚える楽しさが出る。',h:'出現位置に半透明マーカーを0.3秒出してから生成。',f:'避ける／取る／打ち返す'}
+];
+T.push({n:'色が変わる',t:'tease',one:'安全な場所が時間で入れ替わる',w:'床や足場の安全な色が数秒ごとに入れ替わる。',e:'覚えた位置が使えず、見続ける理由が生まれる。',h:'床タイルに状態を持たせ、2秒ごとに安全／危険を入替。',f:'見分ける／避ける／跳ぶ'});
+document.title = '刺激の1手 早見表（' + T.length + '種）';
+
+const grid = document.getElementById('grid');
+T.forEach((x,i)=>{
+  const ty = TYPE[x.t];
+  const el = document.createElement('div');
+  el.className = 'card ' + ty.cls.split(' ')[1];
+  el.innerHTML = `
+    <div class="no">${String(i+1).padStart(2,'0')}</div>
+    <div class="tp ${ty.cls.split(' ')[0]}">${ty.k}</div>
+    <h2>${x.n}</h2>
+    <p class="one">${x.one}</p>
+    <div class="lab">なにが起きる</div>
+    <p class="txt">${x.e}</p>
+    <div class="lab">つくりかた</div>
+    <p class="txt">${x.h}</p>
+    <div class="fit"><b>相性：</b>${x.f}</div>`;
+  grid.appendChild(el);
+});
+
+const MAP = [
+ ['避ける','最後に加速／動く障害物'],['逃げる','追ってくる物'],['集める','取られる'],
+ ['見分ける','偽物を混ぜる'],['積む','溜めてから放つ'],['跳ぶ','足場が消える'],
+ ['走る','止まれない'],['撃つ','狙いながら'],['探す','見える範囲を絞る'],
+ ['押す','リズムを刻みながら'],['曲がる','一度しか曲がれない'],['合わせる','リズムを刻みながら']
+];
+document.getElementById('map').innerHTML =
+  '<b>動詞 → 刺激（迷ったらここから）</b>　' +
+  MAP.map(([v,t])=>`<span>${v}<i>${t}</i></span>`).join('');
+</script>
+</body>
+</html>
