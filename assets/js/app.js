@@ -500,18 +500,20 @@ function screenPrompts(){
   const tabs = [
     {t:'① 企画書', n:'PLAN', v:PK.gen.promptPlan(prop)},
     {t:'② 画面イメージ', n:'IMAGE', v:PK.gen.promptImage(prop, state.dot)},
-    {t:'③ Webゲーム', n:'CODE', v:PK.gen.promptCode(prop)}
+    {t:'③ Webゲーム', n:'CODE', v:PK.gen.promptCode(prop)},
+    {t:'④ Godot移植', n:'GODOT', v:PK.gen.promptGodot(prop)}
   ];
   const cur = tabs[state.tab] || tabs[0];
   return `
   <div class="eyebrow">STEP 09 — PROMPTS</div>
-  <h1>3つのプロンプトを、<br>あなたのAIに渡す。</h1>
+  <h1>4つのプロンプトを、<br>あなたのAIに渡す。</h1>
   <p class="lead">このツールはAIを呼びません。文章は、選んだ条件とパターンDBから組み立てた固定のものです。コピーして、いつもの生成AIに貼ってください。</p>
 
   <ol class="steps-ai">
     <li><b>01</b><span><b>企画書</b>を貼る → 企画書が出る（そのまま保存）</span></li>
     <li><b>02</b><span><b>画面イメージ</b>を画像生成に貼る → 1枚出る</span></li>
     <li><b>03</b><span><b>Webゲーム</b>を貼る → HTMLが出る → 保存して開く → 遊ぶ</span></li>
+    <li><b>04</b><span><b>Godot移植</b>を貼る → Godot 4 の制作手順書が出る → エディタで作り直す（ポートフォリオ強化用）</span></li>
   </ol>
 
   <div class="prompt-tabs" role="tablist">
@@ -519,7 +521,7 @@ function screenPrompts(){
   </div>
   <div class="prompt-panel">
     <div class="prompt-meta">
-      <span class="pm-l">${state.tab===1?'画像生成AI（16:9）に貼る':state.tab===2?'コード生成AIに貼る':'テキスト生成AIに貼る'}／文字数 ${cur.v.length.toLocaleString()}</span>
+      <span class="pm-l">${state.tab===1?'画像生成AI（16:9）に貼る':state.tab===2?'コード生成AIに貼る':state.tab===3?'コード生成AIに貼る（Godot 4 手順書を作らせる）':'テキスト生成AIに貼る'}／文字数 ${cur.v.length.toLocaleString()}</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         ${state.tab===1?`<label class="switch"><input type="checkbox" id="dotToggle" ${state.dot?'checked':''}> ドット絵テイスト</label>`:''}
         <button class="btn" data-act="copyPrompt">コピー</button>
@@ -535,8 +537,11 @@ function screenPrompts(){
 
   <div class="note">
     <strong>AIが別のゲームを提案してきたら、その部分は捨ててください。</strong>
-    3本すべてに「ジャンル・操作・勝敗を変えるな」という拘束を入れてあります。それでも変えてきたら、その出力は使わず、もう一度貼り直すのが早いです。
+    4本すべてに「ジャンル・操作・勝敗を変えるな」という拘束を入れてあります。それでも変えてきたら、その出力は使わず、もう一度貼り直すのが早いです。
   </div>
+  ${state.tab===3?`<div class="note" style="margin-top:10px">
+    <strong>④の使い方：</strong>出てきた手順書を見ながら、<b>Godotのエディタ操作は学生自身が行い、スクリプトだけAIのものを貼ります</b>。まず③のWeb版で遊べる形を作り、提出後に余裕がある人だけ④へ。Web版より手間はかかりますが、「Unity/Godotで作りました」というポートフォリオになります。
+  </div>`:''}
 
   <div class="nav">
     <button class="btn ghost" data-act="back">← 案に戻る</button>
