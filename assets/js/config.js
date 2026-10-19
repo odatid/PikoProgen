@@ -6,7 +6,7 @@ window.PK_CONFIG = {
   /* 'api'   : Google Apps Script の Web App から JSON を受け取る（推奨・非公開シートも可）
      'csv'   : 公開したスプレッドシートのCSVを読む（GitHub Pages だけで完結）
      'local' : 同梱の data.js を使う（オフライン・予備） */
-  MODE: 'api',
+  MODE: 'csv',
 
   /* MODE='api' のとき：Apps Script をデプロイして出た URL を貼る
      例）https://script.google.com/macros/s/AKfycb..../exec */
