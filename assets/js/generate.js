@@ -690,6 +690,95 @@ Markdownのコードブロック1つだけ。中身は <!DOCTYPE html> で始ま
 説明文・前置き・分割・差分は書かないでください。`;
 }
 
+/* ---------- Godot 4 移植プロンプト（学生がGodotエディタを操作する用） ---------- */
+function promptGodot(prop){
+  const tuning = (PK.ENGINES[prop.engine] && PK.ENGINES[prop.engine].tuning) || [];
+  const tuningBlock = tuning.map(t=>`  "${t[0]}": ${t[1]},  # ${t[2]}（${t[3]}）`).join('\n');
+
+  return `Godot 4（GDScript）で作るミニゲームの「制作ガイド」を作ってください。
+作るのはゲームのコード一式ではなく、Godotを初めて触る学生がエディタを自分の手で操作しながら作れる手順書です。
+
+【最重要の拘束】
+${LOCK}
+
+【仕様（変更禁止）】
+・タイトル：${prop.title}
+・プレイヤーがすること：${prop.action}
+・操作：${prop.input}
+・成功条件：${prop.success}
+・失敗条件：${prop.fail}
+・1プレイ：${prop.duration}秒
+・画面：TITLE → PLAY → RESULT（RESULTからRETRYで再開）
+・UI：${listUI(prop)}
+・もう一回遊ぶ理由：${prop.retry}
+
+【出力の形式（この見出し順を厳守）】
+## 0. 準備
+Godot 4.xで新規プロジェクトを作る手順。「2D」で作ること、ウィンドウサイズの設定（縦横比16:9）を含める。
+## 1. シーン構成（完成形）
+完成形のノードツリーを1つのテキストツリーで示す。必ずGodotの実際のノード名で書く（Node2D / Area2D / RigidBody2D / Label / Button など）。Unity用語（GameObject・Prefab・TextMeshPro・OnTriggerEnter2D）を一切使わない。
+## 2. 手順
+7ステップ前後に分割する。各ステップは必ずこの5項目：
+・目的（1行）
+・エディタでの操作（右クリック→「ノードを追加」レベルで、画面を見ながら追える具体度で）
+・貼るスクリプト（ファイル名 + 全コード。コピペで動く完成品。imports/変数に日本語コメント）
+・動作確認（この時点で何ができていれば良いか、F5で何が見えるか）
+・つまずきポイント（1つ。よくあるエラー文と直し方）
+ステップ1は「キャラが矢印キーで動く」まで。ステップ2以降で核心のループ（出る→当たる→点が入る→終わる→もう一回）を最短で繋ぐ。
+## 3. TUNING（調整用の数値）
+数値はすべて autoload かメインスクリプト先頭の const にまとめる。中身は以下の値から始める：
+const TUNING = {
+${tuningBlock || '  # このゲームの主要数値'}
+}
+# ゲーム中はこの値を書き換えるだけで調整できる。学生に「どこを触れば難しさが変わるか」を1行で書く。
+## 4. 書き出し（Web公開）
+プロジェクト → 「書き出し」→ Web (HTML5) の手順。初回はプリセット追加が必要なことも書く。
+
+【GDScriptの条件】
+・GDScript 2.0（Godot 4.x）のみ。C#は使わない。
+・移動・落下・タイマーは「1秒あたりの値 × delta」で更新する。
+・リトライは get_tree().reload_current_scene() で良いが、スコア・残機が残らないよう初期化を確認する。
+・当たり判定は Area2D + body_entered / area_entered を使う。日本語コメント必須。
+・エラーが出ないこと。ノードパス（%Text などユニーク名）は手順の操作と一致させる。
+
+【刺激の1手（必ず実装する・これが面白さの中心）】
+・${prop.twist.name}：${prop.twist.one}
+・実装：${prop.twist.how}
+・調整：${prop.twist.tune}
+・これを入れるためだけに、余計な機能を足さない。1つだけ。
+
+【副動詞の仕掛け（仕様に含める）】
+${prop.subs.length? prop.subs.map(x=>`・${x.verb}：${x.add}`).join('\n') : '・なし'}
+
+【このゲーム固有の実装メモ】
+${prop.codeNotes}
+
+【音（最初から実装する・省略禁止）】
+${PK.PICO_SOUND.build}
+・音量：BGM ${PK.PICO_SOUND.volume}。SEはBGMより目立たせる。
+・SE 8種：${PK.PICO_SE.map(x=>`${x.label}（${x.how}）`).join('／')}
+・必ず「Pen」「Apple」「Pineapple」の3音が耳で区別できること。ここがピコ太郎らしさの中心。
+・音ファイルは wav/ogg を読み込む前提で、AudioStreamPlayer の使い方を手順に含める。
+
+【キャラクターと吹き出し（必ず実装する）】
+・ピコ太郎のキャラを画面に描く（図形のノード組み合わせでよい。画像は使わない）。${PICO_ONELINE}
+・吹き出しを1つ作り、以下の場面で0.9秒だけ表示する。文字は大きく、白地に黒縁。
+　開始：${PK.PICO_LINES.start.slice(0,2).join(' / ')}
+　アイテム登場：${PK.PICO_LINES.appear.join(' / ')}
+　成功：${PK.PICO_LINES.ok.join(' / ')}
+　失敗：${PK.PICO_LINES.miss.join(' / ')}
+　コンボ3以上：${PK.PICO_LINES.combo.join(' / ')}
+・吹き出しはゲームの操作を邪魔しない位置（キャラの頭上、画面の端）に出す。
+・セリフの表示と同時に、対応するSEを鳴らす（音と言葉をセットにする）。
+
+【見た目】
+・背景は黄色と黒のヒョウ柄。UIは白抜きの太い文字。
+・成功は黄色、失敗は赤。色だけで意味が分かるようにする。
+
+【出力】
+Markdownのみ。説明文・前置き・「ようこそ」的な挨拶は書かないでください。`;
+}
+
 /* ---------- 提出用テキスト ---------- */
 function formsText(prop){
   return `【ゲーム仕様ミニマム版】
@@ -776,6 +865,6 @@ function explain(s, p){
 
 PK.gen = {
   recommend, tuningCSharp, ipNote, managementProposal, consistency, dnaSentence, audienceLabel, buildProposal, ipStrength, explain, promptPlan, promptImage, promptCode, formsText, bgmPrompt,
-  ipById, patById, verbById, fill, EXP_CAP
+  ipById, patById, verbById, fill, EXP_CAP, promptGodot,
 };
 })();
